@@ -10,19 +10,21 @@ import web.service.UserService;
 @Controller
 @RequestMapping()
 public class UserController {
+
     private final UserService userService;
+
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
     @GetMapping("/")
-    public String showUsers(Model model){
+    public String getUsers(Model model) {
         model.addAttribute("users", userService.getUsersList());
         return "users";
     }
     @GetMapping("/new")
-    public String createNewUser (Model model) {
+    public String createNewUser(Model model) {
         model.addAttribute(new User());
        return "new_user";
    }
@@ -40,7 +42,7 @@ public class UserController {
     }
 
     @GetMapping("/updateUser")
-    public String showAndEdit(Model model, @RequestParam("id") int id) {
+    public String getUser(Model model, @RequestParam("id") int id) {
         model.addAttribute("user", userService.getUser(id));
         return "edit_user";
     }
@@ -48,11 +50,6 @@ public class UserController {
     @PostMapping("/edit")
     public String editUser(@ModelAttribute("user") User user) {
         userService.editUser(user);
-        return "redirect:/";
-    }
-    @PostMapping("/delete")
-    public String deleteUser(@ModelAttribute("id") int id) {
-        userService.deleteUser(id);
         return "redirect:/";
     }
 }

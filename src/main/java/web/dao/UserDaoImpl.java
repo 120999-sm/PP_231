@@ -8,11 +8,14 @@ import java.util.List;
 
 
 @Repository
-public class UserDaoImpl implements UserDao{
+public class UserDaoImpl implements UserDao {
+
+    private EntityManager entityManager;
 
     @PersistenceContext
-    EntityManager entityManager;
-
+    public void setEntityManager (EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 
     @Override
     public List<User> getUsersList() {
